@@ -1,101 +1,17 @@
-// MindCare Platform JavaScript with Functional Forum & Reply-To Functionality
+// MindCare Platform JavaScript - All features functional and corrected
 
 const appData = {
-  copingStrategies: {
-    breathing: "Let's try a simple breathing technique together: Breathe in slowly for 4 counts, hold for 4 counts, then exhale for 6 counts. Repeat this 3-5 times. This helps activate your body's relaxation response.",
-    grounding: "Try the 5-4-3-2-1 grounding technique: Name 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, and 1 thing you can taste. This helps bring you back to the present moment.",
-    progressive_muscle: "Progressive muscle relaxation can help release physical tension. Start by tensing your shoulders for 5 seconds, then release. Notice the difference between tension and relaxation.",
-    journaling: "Sometimes writing down our thoughts can help organize them and provide relief. Try writing for just 5-10 minutes about what's on your mind, without worrying about grammar or structure.",
-    movement: "Gentle movement can help release stress hormones. This could be a short walk, stretching, dancing to a favorite song, or any movement that feels good to your body.",
-    mindfulness: "Try this simple mindfulness exercise: Focus on your breath for one minute. When your mind wanders (which is normal), gently bring your attention back to breathing."
-  },
   counselors: [
-    {
-      id: 1,
-      name: "Dr. Priya Sharma",
-      specialization: "Anxiety & Stress Management",
-      languages: ["English", "Hindi"],
-      experience: "8 years",
-      availability: ["Monday 10:00-16:00", "Wednesday 14:00-18:00", "Friday 09:00-15:00"],
-      rating: 4.8
-    },
-    {
-      id: 2,
-      name: "Dr. Rajesh Kumar",
-      specialization: "Depression & Mood Support",
-      languages: ["English", "Hindi", "Bengali"],
-      experience: "12 years",
-      availability: ["Tuesday 11:00-17:00", "Thursday 10:00-16:00", "Saturday 09:00-13:00"],
-      rating: 4.9
-    },
-    {
-      id: 3,
-      name: "Dr. Meera Patel",
-      specialization: "Academic & Life Stress",
-      languages: ["English", "Hindi", "Gujarati"],
-      experience: "6 years",
-      availability: ["Monday 14:00-18:00", "Wednesday 10:00-14:00", "Friday 16:00-20:00"],
-      rating: 4.7
-    }
+    { id: 1, name: "Dr. Priya Sharma", specialization: "Anxiety & Stress Management", languages: ["English", "Hindi"], experience: "8 years", rating: 4.8 },
+    { id: 2, name: "Dr. Rajesh Kumar", specialization: "Depression & Mood Support", languages: ["English", "Hindi", "Bengali"], experience: "12 years", rating: 4.9 },
+    { id: 3, name: "Dr. Meera Patel", specialization: "Academic & Life Stress", languages: ["English", "Hindi", "Gujarati"], experience: "6 years", rating: 4.7 }
   ],
   resources: [
-    {
-      id: 1,
-      title: "5-Minute Breathing Exercise",
-      category: "Stress Management",
-      type: "audio",
-      duration: "5 min",
-      language: "English",
-      description: "Quick breathing technique to reduce immediate stress",
-      rating: 4.6
-    },
-    {
-      id: 2,
-      title: "Sleep Hygiene Guide",
-      category: "Sleep Help",
-      type: "pdf",
-      language: "Hindi",
-      description: "Complete guide to better sleep habits for students",
-      rating: 4.8
-    },
-    {
-      id: 3,
-      title: "Managing Exam Anxiety",
-      category: "Academic Stress",
-      type: "video",
-      duration: "12 min",
-      language: "English",
-      description: "Practical strategies for test anxiety and exam preparation",
-      rating: 4.7
-    },
-    {
-      id: 4,
-      title: "Mindfulness for Students",
-      category: "Mindfulness",
-      type: "video",
-      duration: "15 min",
-      language: "Hindi",
-      description: "Introduction to mindfulness practices adapted for college life",
-      rating: 4.9
-    },
-    {
-      id: 5,
-      title: "Building Self-Confidence",
-      category: "Self-Esteem",
-      type: "pdf",
-      language: "English",
-      description: "Evidence-based techniques to improve self-worth and confidence",
-      rating: 4.5
-    }
+    { id: 1, title: "5-Minute Breathing Exercise", category: "Stress Management", type: "audio", duration: "5 min", language: "English", description: "Quick breathing technique to reduce immediate stress", rating: 4.6 },
+    { id: 2, title: "Sleep Hygiene Guide", category: "Sleep Help", type: "pdf", language: "Hindi", description: "Complete guide to better sleep habits for students", rating: 4.8 },
+    { id: 3, title: "Managing Exam Anxiety", category: "Academic Stress", type: "video", duration: "12 min", language: "English", description: "Practical strategies for test anxiety and exam preparation", rating: 4.7 },
   ],
-  analytics: {
-    totalUsers: 2847,
-    activeSessions: 234,
-    completedScreenings: 156,
-    counselorBookings: 89,
-    forumPosts: 1240,
-    crisisInterventions: 12
-  },
+  analytics: { totalUsers: 2847, activeSessions: 234, completedScreenings: 156, counselorBookings: 89, forumPosts: 1240, crisisInterventions: 12 },
   screeningQuestions: {
     phq9: [
       "Over the last 2 weeks, how often have you been bothered by little interest or pleasure in doing things?",
@@ -113,7 +29,7 @@ const appData = {
 
 let currentState = {
   selectedCounselor: null,
-  selectedDate: null,
+  selectedDate: null, 
   selectedTime: null,
   currentScreening: null,
   screeningAnswers: [],
@@ -173,11 +89,12 @@ function showSection(sectionId) {
             document.getElementById('adminDashboard').classList.remove('hidden');
             loadDashboardData();
             loadDashboardCharts();
+            loadAdminBookings();
         }
     }
 }
 
-// --- CHATBOT SECTION (API VERSION) ---
+// --- CHATBOT SECTION ---
 function initializeChat() {
     const welcomeMessage = "Hello, and welcome to a safe space. I'm MindCare Assistant. I'm here to listen and support you. How are you feeling right now?";
     addMessage('bot', welcomeMessage);
@@ -200,7 +117,7 @@ async function handleChatMessage(message) {
     } catch (error) {
         console.error('Error fetching chat response:', error);
         typingIndicator.remove();
-        addMessage('bot', "I'm having trouble connecting right now. Please try again in a moment.");
+        addMessage('bot', "I'm having a little trouble connecting right now. Please try again in a moment.");
     }
 }
 
@@ -212,13 +129,13 @@ function addMessage(sender, content, isTyping = false) {
     const contentDiv = document.createElement('div');
     contentDiv.className = 'message__content';
     contentDiv.textContent = content;
-    if (isTyping) {
-        contentDiv.classList.add('typing-indicator');
-    }
+    if (isTyping) { contentDiv.classList.add('typing-indicator'); }
     messageDiv.appendChild(contentDiv);
     chatMessages.appendChild(messageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    currentState.chatHistory.push({ sender, content, timestamp: new Date() });
+    if(!isTyping) {
+        currentState.chatHistory.push({ sender, content, timestamp: new Date() });
+    }
     return messageDiv;
 }
 
@@ -226,16 +143,13 @@ function sendQuickMessage(message) {
     handleChatMessage(message);
 }
 
-
-// --- FORUM SECTION (UPDATED FOR REPLY-TO FUNCTIONALITY) ---
+// --- FORUM SECTION ---
 let socket; 
 let currentThreadId = null;
 
 function initializeForum() {
     socket = io();
-
     fetchInitialThreads();
-
     socket.on('thread_created', (newThread) => addThreadToPage(newThread, true));
     socket.on('reply_created', (newReply) => {
         if (newReply.thread_id === currentThreadId) {
@@ -247,49 +161,6 @@ function initializeForum() {
             threadCard.textContent = `${currentCount + 1} replies`;
         }
     });
-
-    const createThreadButton = document.querySelector('#createThreadModal .btn--primary');
-    if (createThreadButton) {
-        createThreadButton.onclick = () => {
-            const form = document.getElementById('createThreadForm');
-            const title = document.getElementById('threadTitle').value;
-            const category = document.getElementById('threadCategory').value;
-            const message = document.getElementById('threadMessage').value;
-            if (!title || !category || !message) return alert('Please fill in all fields.');
-            socket.emit('new_thread', { title, category, message });
-            closeModal();
-            form.reset();
-        };
-    }
-
-    document.getElementById('forumThreads')?.addEventListener('click', (e) => {
-        const threadCard = e.target.closest('.thread-card');
-        if (threadCard) showThreadDetail(threadCard.dataset.id);
-    });
-    
-    document.getElementById('replies-container')?.addEventListener('click', (e) => {
-        if (e.target.classList.contains('reply-btn')) {
-            const author = e.target.dataset.author;
-            prepareReplyTo(author);
-        }
-    });
-
-    document.getElementById('back-to-forum-btn')?.addEventListener('click', () => showForumList());
-    
-    document.getElementById('reply-form')?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const replyText = document.getElementById('reply-text');
-        if (replyText.value.trim() && currentThreadId) {
-            socket.emit('new_reply', {
-                thread_id: currentThreadId,
-                text: replyText.value.trim()
-            });
-            replyText.value = '';
-            cancelReplyTo();
-        }
-    });
-
-    document.getElementById('cancel-reply-btn')?.addEventListener('click', () => cancelReplyTo());
 }
 
 async function fetchInitialThreads() {
@@ -297,9 +168,7 @@ async function fetchInitialThreads() {
         const response = await fetch('/api/threads');
         const threads = await response.json();
         displayThreads(threads);
-    } catch (error) {
-        console.error("Failed to fetch threads:", error);
-    }
+    } catch (error) { console.error("Failed to fetch threads:", error); }
 }
 
 function displayThreads(threads) {
@@ -315,53 +184,26 @@ function addThreadToPage(thread, atBeginning) {
     const card = document.createElement('div');
     card.className = 'thread-card';
     card.dataset.id = thread.id;
-    card.innerHTML = `
-        <div class="thread-header">
-            <h3 class="thread-title">${thread.title}</h3>
-            <span class="thread-category">${thread.category}</span>
-        </div>
-        <p class="thread-message-preview">${thread.message.substring(0, 100)}...</p>
-        <div class="thread-meta">
-            <div><span class="thread-author">${thread.author}</span> • <span class="thread-timestamp">${thread.timestamp}</span></div>
-            <div class="thread-stats"><span class="reply-count">${thread.reply_count} replies</span></div>
-        </div>
-    `;
+    card.innerHTML = `<div class="thread-header"><h3 class="thread-title">${thread.title}</h3><span class="thread-category">${thread.category}</span></div><p class="thread-message-preview">${thread.message.substring(0, 100)}...</p><div class="thread-meta"><div><span class="thread-author">${thread.author}</span> • <span class="thread-timestamp">${thread.timestamp}</span></div><div class="thread-stats"><span class="reply-count">${thread.reply_count} replies</span></div></div>`;
     if (atBeginning) container.prepend(card);
     else container.appendChild(card);
 }
 
 async function showThreadDetail(threadId) {
-    if (currentThreadId) {
-        socket.emit('leave_room', { room: `thread_${currentThreadId}` });
-    }
+    if (currentThreadId) { socket.emit('leave_room', { room: `thread_${currentThreadId}` }); }
     currentThreadId = parseInt(threadId);
-
     try {
         const response = await fetch(`/api/thread/${threadId}`);
         const data = await response.json();
-        
         showSection('thread-detail');
-
         document.getElementById('thread-detail-title').textContent = data.thread.title;
-        
         const opContainer = document.getElementById('thread-original-post');
-        opContainer.innerHTML = `
-            <p style="white-space: pre-wrap;">${data.thread.message}</p>
-            <div class="thread-meta">
-                <span>By ${data.thread.author}</span>
-                <span>${data.thread.timestamp}</span>
-            </div>
-        `;
-
+        opContainer.innerHTML = `<p style="white-space: pre-wrap;">${data.thread.message}</p><div class="thread-meta"><span>By ${data.thread.author}</span><span>${data.thread.timestamp}</span></div>`;
         const repliesContainer = document.getElementById('replies-container');
         repliesContainer.innerHTML = ''; 
         data.replies.forEach(reply => addReplyToPage(reply));
-
         socket.emit('join_room', { room: `thread_${threadId}` });
-
-    } catch (error) {
-        console.error('Failed to fetch thread details:', error);
-    }
+    } catch (error) { console.error('Failed to fetch thread details:', error); }
 }
 
 function addReplyToPage(reply) {
@@ -369,16 +211,7 @@ function addReplyToPage(reply) {
     const card = document.createElement('div');
     card.className = 'card';
     card.style.marginBottom = '16px';
-    card.innerHTML = `
-        <div class="card__body">
-            <p style="white-space: pre-wrap;">${reply.text}</p>
-            <div class="thread-meta" style="display: flex; justify-content: space-between; align-items: center; font-size: var(--font-size-sm); color: var(--color-text-secondary);">
-                <span>By ${reply.author}</span>
-                <span>${reply.timestamp}</span>
-                <button class="btn btn--secondary btn--sm reply-btn" data-author="${reply.author}">Reply</button>
-            </div>
-        </div>
-    `;
+    card.innerHTML = `<div class="card__body"><p style="white-space: pre-wrap;">${reply.text}</p><div class="thread-meta" style="display: flex; justify-content: space-between; align-items: center; font-size: var(--font-size-sm); color: var(--color-text-secondary);"><span>By ${reply.author}</span><span>${reply.timestamp}</span><button class="btn btn--secondary btn--sm reply-btn" data-author="${reply.author}">Reply</button></div></div>`;
     container.appendChild(card);
     container.scrollTop = container.scrollHeight;
 }
@@ -396,10 +229,8 @@ function prepareReplyTo(author) {
     const contextBanner = document.getElementById('reply-context');
     const contextAuthor = document.getElementById('reply-context-author');
     const replyText = document.getElementById('reply-text');
-    
     contextAuthor.textContent = `@${author}`;
     contextBanner.classList.remove('hidden');
-    
     replyText.value = `@${author} `;
     replyText.focus();
 }
@@ -407,32 +238,27 @@ function prepareReplyTo(author) {
 function cancelReplyTo() {
     const contextBanner = document.getElementById('reply-context');
     const replyText = document.getElementById('reply-text');
-    
     contextBanner.classList.add('hidden');
     if (replyText.value.startsWith('@')) {
         replyText.value = '';
     }
 }
 
-function showCreateThread() {
-    const modal = document.getElementById('createThreadModal');
-    if (modal) modal.classList.remove('hidden');
-}
-
+function showCreateThread() { const modal = document.getElementById('createThreadModal'); if (modal) modal.classList.remove('hidden'); }
 function createThread() {}
 
 
-// --- SCREENING FUNCTIONALITY (FULL ORIGINAL VERSION) ---
+// --- SCREENING FUNCTIONALITY ---
 function startScreening(type) {
-  currentState.currentScreening = type;
-  currentState.screeningAnswers = [];
-  const modal = document.getElementById('screeningModal');
-  const title = document.getElementById('screeningTitle');
-  const content = document.getElementById('screeningContent');
-  title.textContent = type === 'phq9' ? 'PHQ-9 Depression Screening' : 'GAD-7 Anxiety Screening';
-  const questions = appData.screeningQuestions[type];
-  content.innerHTML = questions.map((question, index) => `<div class="screening-question"><h4>Question ${index + 1}</h4><p>${question}</p><div class="screening-options"><label class="screening-option"><input type="radio" name="q${index}" value="0"> Not at all</label><label class="screening-option"><input type="radio" name="q${index}" value="1"> Several days</label><label class="screening-option"><input type="radio" name="q${index}" value="2"> More than half the days</label><label class="screening-option"><input type="radio" name="q${index}" value="3"> Nearly every day</label></div></div>`).join('');
-  modal.classList.remove('hidden');
+    currentState.currentScreening = type;
+    currentState.screeningAnswers = [];
+    const modal = document.getElementById('screeningModal');
+    const title = document.getElementById('screeningTitle');
+    const content = document.getElementById('screeningContent');
+    title.textContent = type === 'phq9' ? 'PHQ-9 Depression Screening' : 'GAD-7 Anxiety Screening';
+    const questions = appData.screeningQuestions[type];
+    content.innerHTML = questions.map((question, index) => `<div class="screening-question"><h4>Question ${index + 1}</h4><p>${question}</p><div class="screening-options"><label class="screening-option"><input type="radio" name="q${index}" value="0"> Not at all</label><label class="screening-option"><input type="radio" name="q${index}" value="1"> Several days</label><label class="screening-option"><input type="radio" name="q${index}" value="2"> More than half the days</label><label class="screening-option"><input type="radio" name="q${index}" value="3"> Nearly every day</label></div></div>`).join('');
+    modal.classList.remove('hidden');
 }
 
 function submitScreening() {
@@ -450,7 +276,7 @@ function submitScreening() {
         if (currentState.currentScreening === 'phq9') {
             if (total >= 15) { feedback = "Your responses suggest you may be experiencing significant symptoms of depression..."; followUp = "I strongly encourage you to book a session with one of our licensed counselors..."; }
             else if (total >= 10) { feedback = "Your responses indicate moderate symptoms that are worth addressing..."; followUp = "Consider speaking with one of our counselors..."; }
-            else if (total >= 5) { feedback = "Your responses suggest mild symptoms that are quite common..."; followUp = "Continue practicing self-care and consider exploring our wellness resources..."; }
+            else if (total >= 5) { feedback = "Your responses suggest mild symptoms that are quite common among students..."; followUp = "Continue practicing self-care and consider exploring our wellness resources..."; }
             else { feedback = "Your responses suggest minimal symptoms, which is encouraging..."; followUp = "Keep up the good self-care practices..."; }
         } else { // GAD-7
             if (total >= 15) { feedback = "Your responses suggest you may be experiencing severe anxiety symptoms..."; followUp = "I strongly recommend booking a session with one of our counselors..."; }
@@ -466,7 +292,7 @@ function submitScreening() {
     }, 500);
 }
 
-// --- COUNSELOR BOOKING SECTION (FULL ORIGINAL VERSION) ---
+// --- COUNSELOR BOOKING ---
 function loadCounselors() {
     const counselorsList = document.getElementById('counselorsList');
     if (!counselorsList) return;
@@ -478,7 +304,9 @@ function selectCounselor(counselorId) {
     currentState.selectedCounselor = counselorId;
     document.querySelectorAll('.counselor-card').forEach(card => card.classList.remove('selected'));
     event.currentTarget.classList.add('selected');
-    loadTimeSlots();
+    if (currentState.selectedDate) {
+        loadTimeSlots();
+    }
 }
 
 function initializeCalendar() {
@@ -491,37 +319,53 @@ function initializeCalendar() {
     const daysInMonth = new Date(currentState.currentYear, currentState.currentMonth + 1, 0).getDate();
     let calendarHTML = '';
     const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    dayHeaders.forEach(day => { calendarHTML += `<div class="calendar-day-header" style="font-weight: bold; text-align: center; padding: 8px;">${day}</div>`; });
+    dayHeaders.forEach(day => { calendarHTML += `<div class="calendar-day-header">${day}</div>`; });
     for (let i = 0; i < firstDay; i++) { calendarHTML += '<div class="calendar-day disabled"></div>'; }
     for (let day = 1; day <= daysInMonth; day++) {
-        const isPast = new Date(currentState.currentYear, currentState.currentMonth, day) < new Date().setHours(0, 0, 0, 0);
-        calendarHTML += `<div class="calendar-day ${isPast ? 'disabled' : ''} ${currentState.selectedDate === day ? 'selected' : ''}" onclick="${isPast ? '' : `selectDate(${day})`}">${day}</div>`;
+        const date = new Date(currentState.currentYear, currentState.currentMonth, day);
+        const isPast = date < new Date().setHours(0, 0, 0, 0);
+        const dateString = date.toISOString().split('T')[0];
+        calendarHTML += `<div class="calendar-day ${isPast ? 'disabled' : ''} ${currentState.selectedDate === dateString ? 'selected' : ''}" onclick="${isPast ? '' : `selectDate(this, ${day})`}">${day}</div>`;
     }
     calendarGrid.innerHTML = calendarHTML;
 }
 
-function selectDate(day) {
-    currentState.selectedDate = day;
-    initializeCalendar();
+function selectDate(element, day) {
+    const selectedFullDate = new Date(currentState.currentYear, currentState.currentMonth, day);
+    currentState.selectedDate = selectedFullDate.toISOString().split('T')[0];
+    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+    element.classList.add('selected');
     loadTimeSlots();
 }
 
-function loadTimeSlots() {
+async function loadTimeSlots() {
     const timeSlotsContainer = document.getElementById('timeSlots');
     if (!timeSlotsContainer) return;
     if (!currentState.selectedCounselor || !currentState.selectedDate) {
-        timeSlotsContainer.innerHTML = '<p>Please select a counselor and date first.</p>'; return;
+        timeSlotsContainer.innerHTML = '<p>Please select a counselor and date first.</p>';
+        return;
     }
-    const timeSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
-    timeSlotsContainer.innerHTML = timeSlots.map(time => `<div class="time-slot" onclick="selectTime('${time}')">${time}</div>`).join('');
+    try {
+        const response = await fetch(`/api/availability/${currentState.selectedCounselor}/${currentState.selectedDate}`);
+        const bookedTimes = await response.json();
+        const allPossibleSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+        const availableSlots = allPossibleSlots.filter(slot => !bookedTimes.includes(slot));
+        if (availableSlots.length > 0) {
+            timeSlotsContainer.innerHTML = availableSlots.map(time => `<div class="time-slot" onclick="selectTime(this, '${time}')">${time}</div>`).join('');
+        } else {
+            timeSlotsContainer.innerHTML = '<p>No available slots for this day.</p>';
+        }
+    } catch (error) {
+        console.error('Error fetching time slots:', error);
+        timeSlotsContainer.innerHTML = '<p>Could not load slots. Please try again.</p>';
+    }
 }
 
-function selectTime(time) {
+function selectTime(element, time) {
     currentState.selectedTime = time;
     document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
-    event.currentTarget.classList.add('selected');
-    const bookingForm = document.getElementById('bookingFormContainer');
-    if (bookingForm) bookingForm.classList.remove('hidden');
+    element.classList.add('selected');
+    document.getElementById('bookingFormContainer').classList.remove('hidden');
 }
 
 function changeMonth(direction) {
@@ -531,7 +375,37 @@ function changeMonth(direction) {
     initializeCalendar();
 }
 
-// --- RESOURCES SECTION (FULL ORIGINAL VERSION) ---
+async function handleBookingSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const userName = form.querySelector('input[type="text"]').value;
+    const userEmail = form.querySelector('input[type="email"]').value;
+    if (!userName || !userEmail || !currentState.selectedCounselor || !currentState.selectedDate || !currentState.selectedTime) {
+        alert("Please ensure all fields and selections are complete.");
+        return;
+    }
+    const bookingData = { counselor_id: currentState.selectedCounselor, date: currentState.selectedDate, time: currentState.selectedTime, user_name: userName, user_email: userEmail };
+    try {
+        const response = await fetch('/api/book', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(bookingData) });
+        const result = await response.json();
+        if (result.success) {
+            alert('Booking confirmed! You will receive a confirmation email shortly.');
+            document.getElementById('bookingFormContainer').classList.add('hidden');
+            form.reset();
+            currentState.selectedCounselor = null;
+            currentState.selectedDate = null;
+            currentState.selectedTime = null;
+            loadCounselors();
+        } else {
+            throw new Error(result.message);
+        }
+    } catch (error) {
+        console.error("Booking failed:", error);
+        alert("Booking failed. Please try again.");
+    }
+}
+
+// --- RESOURCES SECTION ---
 function loadResources() {
     const resourcesGrid = document.getElementById('resourcesGrid');
     if (!resourcesGrid) return;
@@ -543,13 +417,11 @@ function loadResources() {
     if (languageFilter) languageFilter.addEventListener('change', filterResources);
     if (searchResources) searchResources.addEventListener('input', filterResources);
 }
-
 function displayResources(resources) {
     const resourcesGrid = document.getElementById('resourcesGrid');
     if (!resourcesGrid) return;
     resourcesGrid.innerHTML = resources.map(r => `<div class="resource-card"><div class="resource-header"><h3 class="resource-title">${r.title}</h3><span class="resource-type">${r.type}</span></div><div class="resource-category">${r.category}</div><p class="resource-description">${r.description}</p><div class="resource-meta"><div><span>${r.language}</span>${r.duration ? ` • ${r.duration}` : ''}</div><div class="resource-rating"><span class="rating-stars">★★★★★</span><span>${r.rating}</span></div></div></div>`).join('');
 }
-
 function filterResources() {
     const category = document.getElementById('categoryFilter').value;
     const language = document.getElementById('languageFilter').value;
@@ -561,20 +433,35 @@ function filterResources() {
     displayResources(filtered);
 }
 
-// --- ADMIN & PROFILE SECTIONS (FULL ORIGINAL VERSION) ---
+// --- ADMIN & PROFILE SECTIONS ---
 function adminLogin(event) {
     event.preventDefault();
     if (document.getElementById('adminUsername').value === 'admin' && document.getElementById('adminPassword').value === 'demo123') {
         currentState.adminLoggedIn = true;
         showSection('admin');
-    } else {
-        alert('Invalid credentials. Use admin/demo123');
-    }
+    } else { alert('Invalid credentials. Use admin/demo123'); }
 }
 
 function adminLogout() {
     currentState.adminLoggedIn = false;
     showSection('admin');
+}
+
+async function loadAdminBookings() {
+    const listContainer = document.getElementById('bookings-list');
+    if (!listContainer) return;
+    try {
+        const response = await fetch('/api/bookings');
+        const bookings = await response.json();
+        if (bookings.length === 0) {
+            listContainer.innerHTML = '<p>No appointments scheduled yet.</p>';
+            return;
+        }
+        listContainer.innerHTML = bookings.map(booking => `<div class="booking-item"><div><strong>${booking.date}</strong> at ${booking.time}</div><div>With: <strong>${booking.counselor_name}</strong></div><div class="user-info">Booked by: <strong>${booking.user_name}</strong> (${booking.user_email})</div></div>`).join('');
+    } catch (error) {
+        console.error('Failed to load bookings:', error);
+        listContainer.innerHTML = '<p>Error loading appointments.</p>';
+    }
 }
 
 function loadDashboardData() {
@@ -589,14 +476,10 @@ function loadDashboardCharts() {
     if (typeof Chart === 'undefined') return;
     const usageCtx = document.getElementById('usageChart');
     if (usageCtx && usageCtx.chart) usageCtx.chart.destroy();
-    if (usageCtx) {
-        usageCtx.chart = new Chart(usageCtx.getContext('2d'), { type: 'line', data: { labels: ['8 AM', '10 AM', '2 PM', '6 PM', '10 PM'], datasets: [{ label: 'Active Users', data: [45, 78, 156, 234, 189], borderColor: '#1FB8CD', backgroundColor: 'rgba(31, 184, 205, 0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false } });
-    }
+    if (usageCtx) { usageCtx.chart = new Chart(usageCtx.getContext('2d'), { type: 'line', data: { labels: ['8 AM', '10 AM', '2 PM', '6 PM', '10 PM'], datasets: [{ label: 'Active Users', data: [45, 78, 156, 234, 189], borderColor: '#1FB8CD', backgroundColor: 'rgba(31, 184, 205, 0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } }); }
     const concernsCtx = document.getElementById('concernsChart');
     if (concernsCtx && concernsCtx.chart) concernsCtx.chart.destroy();
-    if (concernsCtx) {
-        concernsCtx.chart = new Chart(concernsCtx.getContext('2d'), { type: 'doughnut', data: { labels: ['Academic Stress', 'Anxiety', 'Depression', 'Social Issues', 'Sleep Problems'], datasets: [{ data: [35, 28, 18, 12, 7], backgroundColor: ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F'] }] }, options: { responsive: true, maintainAspectRatio: false } });
-    }
+    if (concernsCtx) { concernsCtx.chart = new Chart(concernsCtx.getContext('2d'), { type: 'doughnut', data: { labels: ['Academic Stress', 'Anxiety', 'Depression', 'Social Issues', 'Sleep Problems'], datasets: [{ data: [35, 28, 18, 12, 7], backgroundColor: ['#1FB8CD', '#FFC185', '#B4413C', '#ECEBD5', '#5D878F'] }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } } }); }
 }
 
 function loadActivityHistory() {
@@ -648,12 +531,43 @@ function setupEventListeners() {
     });
     const bookingForm = document.getElementById('bookingForm');
     if (bookingForm) {
-        bookingForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Booking confirmed!');
-            closeModal();
-        });
+        bookingForm.addEventListener('submit', handleBookingSubmit);
     }
+    // Forum Listeners
+    const createThreadButton = document.querySelector('#createThreadModal .btn--primary');
+    if (createThreadButton) {
+        createThreadButton.onclick = () => {
+            const form = document.getElementById('createThreadForm');
+            const title = document.getElementById('threadTitle').value;
+            const category = document.getElementById('threadCategory').value;
+            const message = document.getElementById('threadMessage').value;
+            if (!title || !category || !message) return alert('Please fill in all fields.');
+            socket.emit('new_thread', { title, category, message });
+            closeModal();
+            form.reset();
+        };
+    }
+    document.getElementById('forumThreads')?.addEventListener('click', (e) => {
+        const threadCard = e.target.closest('.thread-card');
+        if (threadCard) showThreadDetail(threadCard.dataset.id);
+    });
+    document.getElementById('replies-container')?.addEventListener('click', (e) => {
+        if (e.target.classList.contains('reply-btn')) {
+            const author = e.target.dataset.author;
+            prepareReplyTo(author);
+        }
+    });
+    document.getElementById('back-to-forum-btn')?.addEventListener('click', () => showForumList());
+    document.getElementById('reply-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const replyText = document.getElementById('reply-text');
+        if (replyText.value.trim() && currentThreadId) {
+            socket.emit('new_reply', { thread_id: currentThreadId, text: replyText.value.trim() });
+            replyText.value = '';
+            cancelReplyTo();
+        }
+    });
+    document.getElementById('cancel-reply-btn')?.addEventListener('click', () => cancelReplyTo());
 }
 
 // --- GLOBAL FUNCTIONS ---

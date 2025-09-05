@@ -1912,3 +1912,31 @@ select.form-control {
     color: var(--color-text-secondary);
     line-height: 1;
 }
+/* Add these styles to the end of your style.css file */
+
+.appointments-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.booking-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+}
+
+.booking-item:last-child {
+    border-bottom: none;
+}
+
+.booking-item strong {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+.booking-item .user-info {
+    color: var(--color-text-secondary);
+}
