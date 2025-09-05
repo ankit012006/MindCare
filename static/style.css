@@ -1884,3 +1884,31 @@ select.form-control {
     grid-template-columns: 1fr;
   }
 }
+/* Add these styles to the end of your style.css file */
+
+.reply-btn {
+    font-size: var(--font-size-xs);
+    padding: var(--space-4) var(--space-8);
+    margin-left: auto; /* Pushes the button to the right */
+}
+
+.reply-context-banner {
+    background-color: var(--color-sage-light);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-8) var(--space-12);
+    margin-bottom: var(--space-12);
+    border-radius: var(--radius-base);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-sm);
+}
+
+.reply-context-banner button {
+    background: none;
+    border: none;
+    font-size: var(--font-size-xl);
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    line-height: 1;
+}
