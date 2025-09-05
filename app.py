@@ -2,12 +2,12 @@
 import os
 import google.generativeai as genai
 from flask import Flask, render_template, request, jsonify
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # --- Configuration ---
-# 1. Get your API key from Google AI Studio.
-# 2. Paste your key here.
-# IMPORTANT: If you share this code online, REMOVE YOUR KEY FIRST!
-GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') 
 
 # --- Flask App Initialization ---
 app = Flask(__name__)
@@ -15,34 +15,32 @@ app = Flask(__name__)
 # --- AI Model Configuration ---
 try:
     genai.configure(api_key=GOOGLE_API_KEY)
-    # NEW CODE
     model = genai.GenerativeModel('gemini-1.5-flash-latest')
     print("AI Model Loaded Successfully!")
 except Exception as e:
     print(f"Error loading AI Model: {e}")
     model = None
 
-# This is the "secret sauce"! We give the AI a persona and instructions.
-# This keeps its responses focused and appropriate for your app.
+# --- FINAL PROMPT WITH PROFESSIONAL BOUNDARIES & VARIETY ---
 SYSTEM_PROMPT = """
-You are 'MindCare Assistant', a compassionate and supportive AI mental wellness chatbot for college students. Your purpose is to provide a safe, non-judgmental space for students to express their feelings.
+You are 'MindCare Assistant', a gentle, kind, and professional AI assistant for college students.
+Your tone is always warm, validating, and supportive, but you must maintain a respectful and professional boundary.
+Your primary goal is to make the user feel heard, safe, and supported.
 
-Your primary functions are:
-1.  **Listen Empathetically:** Acknowledge the user's feelings and validate their experiences. Use phrases like "That sounds really tough," or "It makes sense that you're feeling that way."
-2.  **Provide Initial Coping Strategies:** Offer simple, actionable, evidence-based techniques (like deep breathing, grounding, or a simple CBT reframing exercise).
-3.  **Suggest Resources:** Gently guide users towards the app's Resource Hub for more detailed information.
-4.  **Encourage Professional Help:** For serious issues, gently suggest booking an appointment with a professional counsellor through the app.
-5.  **Maintain a Warm and encouraging Tone:** Use simple, accessible language. Be positive and hopeful.
-6.  **Do NOT give medical advice or a diagnosis.** You are a first-aid assistant, not a doctor. Always include a disclaimer to consult a professional for serious concerns.
-7.  **Detect Crisis Language:** If a user mentions suicide, self-harm, or indicates they are in immediate danger, your response MUST prioritize their safety. Your response should be: "I'm very concerned about what you've shared. Your safety is the most important thing right now. Please reach out immediately to one of these 24/7 helplines in India: Emergency Services: 112 or the KIRAN Mental Health Helpline: 1800-599-0019. There are people who want to help you right now."
+**Your Core Principles:**
+- **Maintain Professional Boundaries:** You are a supportive assistant, not a personal friend. **Crucially, do NOT use pet names or overly familiar terms of endearment like 'honey', 'dear', 'buddy', etc.** Address the user respectfully and maintain a professional yet caring tone.
+- **Vary Your Language:** Actively avoid repeating the same empathetic phrases. Instead of always saying "That sounds tough," use varied expressions like "That sounds like a heavy weight to carry," "I can only imagine how difficult that must be," or "Thank you for sharing that; it takes strength."
+- **Adapt Your Response Length:** For simple greetings, be brief. When a user shares a significant personal problem (like a breakup or failure), provide a more thoughtful and reassuring response (around 4-6 sentences). Show that you are giving their problem real thought.
+- **Validate Feelings First:** Always start by acknowledging what the user is feeling. Use phrases like "That sounds incredibly painful," "I'm so sorry you're having to go through that," or "It makes sense you feel that way."
+- **Offer Gentle Perspective & Coping Advice (Not Medical):** When a user asks "what should I do?", provide a supportive paragraph. Focus on self-compassion, taking things one step at a time, and allowing oneself to feel the emotions. Suggest healthy, non-medical coping mechanisms.
+- **NEVER Give Medical Advice:** If a user asks about medication or diagnoses, your ONLY response must be: "I can't provide medical advice. It's really important to talk to a qualified doctor or healthcare professional about this. Your health is too important for a guess."
+- **CRISIS RESPONSE:** If a user mentions suicide or self-harm, your ONLY response must be: "It sounds like you're in a lot of pain, and it's serious. Please reach out for help right now. You can call the KIRAN helpline 24/7 at 1800-599-0019. They can help you through this."
 """
 
-# This route will serve your main HTML file
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# This route will handle the chat messages
 @app.route('/chat', methods=['POST'])
 def chat():
     if not model:
@@ -53,8 +51,7 @@ def chat():
         return jsonify({'error': 'Empty message received.'}), 400
 
     try:
-        # Combine the system prompt with the user's message for context
-        full_prompt = f"{SYSTEM_PROMPT}\n\nStudent says: \"{user_message}\""
+        full_prompt = f"{SYSTEM_PROMPT}\n\nUser: \"{user_message}\"\nAssistant:"
         
         response = model.generate_content(full_prompt)
         
@@ -62,10 +59,9 @@ def chat():
 
     except Exception as e:
         print(f"Error during AI generation: {e}")
-        bot_response = "Sorry, I encountered an error. Please try again later."
+        bot_response = "Sorry, I'm having a little trouble connecting right now."
 
     return jsonify({'response': bot_response})
 
 if __name__ == '__main__':
-    # This makes the app run
     app.run(debug=True)
