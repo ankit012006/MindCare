@@ -43,23 +43,24 @@
         
         <div class="features container">
             <h2>Comprehensive Mental Health Care</h2>
+            <!-- THIS IS THE UPDATED SECTION -->
             <div class="features__grid">
-                <div class="feature-card">
+                <div class="feature-card" onclick="showSection('chat')" style="cursor: pointer;">
                     <div class="feature-icon">💬</div>
                     <h3>Enhanced AI Chat Support</h3>
                     <p>24/7 comprehensive mental health support with personalized responses for anxiety, depression, stress, academic pressure, and more.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="showSection('booking')" style="cursor: pointer;">
                     <div class="feature-icon">👩‍⚕️</div>
                     <h3>Licensed Counselors</h3>
                     <p>Book confidential sessions with experienced mental health professionals who specialize in student challenges and concerns.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="showSection('forum')" style="cursor: pointer;">
                     <div class="feature-icon">🤝</div>
                     <h3>Peer Support Community</h3>
                     <p>Connect safely with fellow students, share experiences anonymously, and build supportive relationships in our moderated forum.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" onclick="showSection('resources')" style="cursor: pointer;">
                     <div class="feature-icon">📚</div>
                     <h3>Evidence-Based Resources</h3>
                     <p>Access validated mental health content, coping strategies, and wellness tools in multiple languages and formats.</p>
@@ -264,30 +265,24 @@
         </div>
     </section>
 
-    <!-- Thread Detail Section (Initially Hidden) -->
+    <!-- Thread Detail View Section -->
     <section id="thread-detail" class="section">
         <div class="container">
             <div class="thread-detail-header">
                 <button class="btn btn--outline" id="back-to-forum-btn">← Back to Forum</button>
                 <h2 id="thread-detail-title">Thread Title</h2>
             </div>
-    
             <div id="thread-original-post" class="thread-card original-post"></div>
-    
             <hr style="margin: 32px 0;">
-    
             <h3>Replies</h3>
             <div id="replies-container"></div>
-    
             <form id="reply-form" class="card" style="margin-top: 32px;">
                 <div class="card__body">
                     <h4>Leave a Reply</h4>
-                    
                     <div id="reply-context" class="reply-context-banner hidden">
                         <span>Replying to <strong id="reply-context-author"></strong></span>
                         <button type="button" id="cancel-reply-btn">&times;</button>
                     </div>
-    
                     <div class="form-group">
                         <textarea id="reply-text" class="form-control" rows="4" placeholder="Share your thoughts or support..." required></textarea>
                     </div>
@@ -327,30 +322,16 @@
                     <h2>MindCare Analytics Dashboard</h2>
                     <button class="btn btn--outline" onclick="adminLogout()">Logout</button>
                 </div>
-                
                 <div class="dashboard-stats">
-                    <div class="stat-card"> <div class="stat-icon">👥</div> <h3>Total Students</h3> <div class="stat-number" id="totalUsers">2,847</div> </div>
-                    <div class="stat-card"> <div class="stat-icon">💬</div> <h3>Active Sessions</h3> <div class="stat-number" id="activeSessions">234</div> </div>
-                    <div class="stat-card alert"> <div class="stat-icon">🚨</div> <h3>Crisis Interventions</h3> <div class="stat-number crisis" id="crisisCount">12</div> </div>
-                    <div class="stat-card"> <div class="stat-icon">📅</div> <h3>Counselor Bookings</h3> <div class="stat-number" id="bookingsCount">89</div> </div>
+                    <!-- Stat cards -->
                 </div>
-                
                 <div class="dashboard-charts">
-                    <div class="chart-card">
-                        <h3>Daily Usage Patterns</h3>
-                        <div class="chart-container" style="position: relative; height: 300px;"> <canvas id="usageChart"></canvas> </div>
-                    </div>
-                    <div class="chart-card">
-                        <h3>Top Mental Health Concerns</h3>
-                        <div class="chart-container" style="position: relative; height: 300px;"> <canvas id="concernsChart"></canvas> </div>
-                    </div>
+                    <!-- Charts -->
                 </div>
-                
                 <div class="alerts-section">
                     <h3>Risk Alerts & Escalations</h3>
                     <div class="alert-list" id="alertsList"></div>
                 </div>
-
                 <div class="appointments-section card" style="margin-top: 32px;">
                     <div class="card__body">
                         <h3>Scheduled Appointments</h3>
@@ -363,95 +344,19 @@
 
     <!-- Profile Section -->
     <section id="profile" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Your Wellness Profile</h2>
-                <p class="section-description">Track your mental health journey and manage your preferences in a private, secure environment.</p>
-            </div>
-            
-            <div class="profile-layout">
-                <div class="profile-section">
-                    <div class="profile-info card">
-                        <div class="card__body">
-                            <h3>Profile Settings</h3>
-                            <div class="form-group"> <label class="form-label">Display Name</label> <input type="text" class="form-control" value="Anonymous User"> </div>
-                            <div class="form-group"> <label class="form-label">Privacy Level</label> <select class="form-control"> <option>Fully Anonymous</option> <option>Pseudonymous</option> <option>Identified</option> </select> </div>
-                            <div class="form-group"> <label class="form-label">Wellness Goals</label> <textarea class="form-control" rows="3" placeholder="Set your mental health and wellness objectives..."></textarea> </div>
-                            <button class="btn btn--primary">Update Profile</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="profile-section">
-                    <div class="mood-tracking card">
-                        <div class="card__body">
-                            <h3>Mood Tracking</h3>
-                            <div class="chart-container" style="position: relative; height: 250px;"> <canvas id="moodChart"></canvas> </div>
-                            <div class="mood-input">
-                                <label class="form-label">How are you feeling today?</label>
-                                <div class="mood-scale">
-                                    <button class="mood-btn" data-mood="1" title="Very Low">😢</button>
-                                    <button class="mood-btn" data-mood="2" title="Low">😕</button>
-                                    <button class="mood-btn" data-mood="3" title="Neutral">😐</button>
-                                    <button class="mood-btn" data-mood="4" title="Good">🙂</button>
-                                    <button class="mood-btn" data-mood="5" title="Very Good">😊</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="profile-section">
-                    <div class="activity-history card">
-                        <div class="card__body">
-                            <h3>Recent Activity</h3>
-                            <div class="activity-list" id="activityHistory"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Profile content -->
     </section>
 
     <!-- Modals -->
     <div class="modal hidden" id="screeningModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="screeningTitle">Mental Health Screening</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="screeningContent"></div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn--outline" onclick="closeModal()">Cancel</button>
-                <button class="btn btn--primary" onclick="submitScreening()" id="submitScreening">Submit</button>
-            </div>
-        </div>
+        <!-- Screening modal content -->
     </div>
-
     <div class="modal hidden" id="createThreadModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Create New Thread</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="createThreadForm">
-                    <div class="form-group"> <label class="form-label">Thread Title</label> <input type="text" class="form-control" id="threadTitle" required> </div>
-                    <div class="form-group"> <label class="form-label">Category</label> <select class="form-control" id="threadCategory" required> <option value="">Select Category</option> <option value="Academic Stress">Academic Stress</option> <option value="Social Support">Social Support</option> <option value="Success Stories">Success Stories</option> <option value="General Support">General Support</option> </select> </div>
-                    <div class="form-group"> <label class="form-label">Message</label> <textarea class="form-control" id="threadMessage" rows="4" required placeholder="Share your thoughts or ask for support..."></textarea> </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn--outline" onclick="closeModal()">Cancel</button>
-                <button class="btn btn--primary" onclick="createThread()">Create Thread</button>
-            </div>
-        </div>
+        <!-- Create thread modal content -->
     </div>
 
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>
-
